@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title></title>
+  <link rel="stylesheet" href="./base.css">
+</head>
+<body>
+
+    <img width="200" src="./turtle.png" alt = "turtle" class="turt">
+
+    <style>
+        .turt {
+            position: relative;
+            --x: 0px;
+            --y: 0px;
+            --flipY: 0;
+            --rotate: 0;
+            transform: translateX(var(--x)) translateY(var(--y))  rotateY(var(--flipY)) rotate(var(--rotate));
+            transition: transform 0.2s;
+
+        }
+    </style>
+    <script>
+        const turtle = document.querySelector('.turt');
+
+        let x = 0;
+        let y = 0;
+        const speed = 50;
+        let flipped = false;
+        let rotate = 0;
+        function handleKeyDown(e) {
+
+            // if not an arrow key, then we don't care
+            if (!e.key.includes('Arrow')) { return; }
+                
+            switch (e.key) {
+                case 'ArrowLeft': 
+                  if (x > 0) {
+                       x--; 
+                       flipped = true;
+                       rotated = 0;
+                  }
+                  break;
+                case 'ArrowRight': x++; flipped = false; rotated = 0; break;
+                case 'ArrowDown': y++; rotated = 90;  break;
+                case 'ArrowUp': 
+                   if (y > 0) {
+                       y--;
+                       rotated = -90;
+                   }
+                    break;
+                default: null;
+            }
+
+            turtle.setAttribute('style', `--y:${y * speed}px; 
+                                          --x:${x * speed}px;
+                                          --flipY:${(flipped) ? '180deg' : '0'};
+                                          --rotate:${rotated}deg;`);
+        }
+
+        window.addEventListener('keydown', handleKeyDown);
+    </script>
+</body>
+
+</html>
